@@ -39,7 +39,7 @@ typeCheck (Lam n t e) = do
   put $ (n, t):(ctx)
   ce <- typeCheck e
   put $ ctx
-  return ce
+  return (t :-> ce)
 typeCheck (App e1 e2) = do
   ce1 <- typeCheck e1
   ce2 <- typeCheck e2

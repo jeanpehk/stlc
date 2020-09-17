@@ -8,7 +8,7 @@ main :: IO ()
 main = putStrLn "todo"
 
 test = do
-  let e = parseExp "(\\y::Int -> Int . y) 2"
+  let e = parseExp "(\\y::Int->Int . y) (\\x::Int.x)"
   case fst (runTc e) of
     Left err -> putStrLn $ show err
     Right rs -> putStrLn $ show rs

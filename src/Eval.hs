@@ -14,8 +14,8 @@ step (App e1 e2) = Just $ app e1 e2
 
 app :: Exp -> Exp -> Exp
 app (Const i) e2   = error $ "Fix typechecker, can't apply "
-                             ++ show e2 ++ " to " ++ show i
-app (Var n) e2     = error $ "Unboudn variable " ++ n
+                              ++ show e2 ++ " to " ++ show i
+app (Var n) e2     = error $ "Unbound variable " ++ n
 app (Lam n _ e) e2 = subst (B n e) e2
 app (App e1 e2) e' = App (app e1 e2) e2
 
@@ -29,3 +29,9 @@ subst b (Lam n' t e')
   | getC b == n'    = Lam n' t e'
   | otherwise       = Lam n' t (subst b e')
 subst b (App e1 e2) = App (subst b e1) (subst b e2)
+
+-- | Small step reduce until we have a value.
+eval :: Exp -> Exp
+eval e = case step e of
+           Just x  -> eval x
+           Nothing -> e
