@@ -4,12 +4,26 @@ import Eval
 import Parser
 import TypeCheck
 
+import System.Environment
+import System.Console.Haskeline
+
 main :: IO ()
-main = putStrLn "todo"
+main = repl
 
-test = do
-  let e = parseExp "((\\y::Int->Int . y) (\\x::Int.x)) 2"
-  case fst (runTc e) of
-    Left err -> putStrLn $ show err
-    Right rs -> putStrLn $ show $ eval e
-
+repl = do
+  putStrLn "---------------------------- STLC repl ----------------------------"
+  putStrLn "Syntax: (\\'var'::'Type'.'lam-body') 'argument', Type 'q' to quit."
+  putStrLn "-------------------------------------------------------------------"
+  runInputT defaultSettings loop
+  where
+    loop :: InputT IO ()
+    loop = do
+      input <- getInputLine "stlc> "
+      case input of
+        Nothing  -> return ()
+        Just "q" -> return ()
+        Just input -> do
+          let e = parseExp input
+          case fst (runTc e) of
+            Left err -> do {outputStrLn $ show err; loop}
+            Right x  -> do {outputStrLn $ show (eval e); loop}
