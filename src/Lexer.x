@@ -1,5 +1,7 @@
 {
+
 module Lexer where
+
 }
 
 %wrapper "basic"
@@ -16,6 +18,9 @@ tokens :-
 
   $digit+                             { \s -> TokenInt (read s) }
   "->"                                { \s -> TokenArrow }
+  "::"                                { \s -> TokenIsOfType }
+  "."                                 { \s -> TokenDot }
+  Int                                 { \s -> TokenIntType }
   \\                                  { \s -> TokenLambda }
   \(                                  { \s -> TokenLParen }
   \)                                  { \s -> TokenRParen }
@@ -25,7 +30,10 @@ tokens :-
 
 data Token
   = TokenArrow
+  | TokenDot
   | TokenInt Int
+  | TokenIntType
+  | TokenIsOfType
   | TokenLambda
   | TokenLParen
   | TokenRParen
