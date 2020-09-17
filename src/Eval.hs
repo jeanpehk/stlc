@@ -13,7 +13,7 @@ step (Lam n t e) = Nothing
 step (App e1 e2) = Just $ app e1 e2
 
 app :: Exp -> Exp -> Exp
-app (Const i) e2   = error $ "Fix typechecker, cant apply "
+app (Const i) e2   = error $ "Fix typechecker, can't apply "
                              ++ show e2 ++ " to " ++ show i
 app (Var n) e2     = error $ "Unboudn variable " ++ n
 app (Lam n _ e) e2 = subst (B n e) e2

@@ -30,8 +30,8 @@ runTc e = (runState . runExceptT) (typeCheck e) []
 
 -- | Typecheck expressions.
 typeCheck :: Exp -> Tc Ty
-typeCheck (Const i) = return TyInt
-typeCheck (Var n) = do
+typeCheck (Const i)   = return TyInt
+typeCheck (Var n)     = do
   ctx <- get
   getName n ctx
 typeCheck (Lam n t e) = do
@@ -40,7 +40,6 @@ typeCheck (Lam n t e) = do
   ce <- typeCheck e
   put $ ctx
   return ce
-
 typeCheck (App e1 e2) = do
   ce1 <- typeCheck e1
   ce2 <- typeCheck e2
@@ -52,4 +51,3 @@ typeCheck (App e1 e2) = do
                                             show ce2 ++ " as an argument for " ++
                                             show ce1)
     wt -> throwError $ FError wt ("Expected a function type but got " ++ show wt)
-
