@@ -17,7 +17,7 @@ app (Const i) e2   = error $ "Fix typechecker, can't apply "
                               ++ show e2 ++ " to " ++ show i
 app (Var n) e2     = error $ "Unbound variable " ++ n
 app (Lam n _ e) e2 = subst (B n e) e2
-app (App e1 e2) e' = App (app e1 e2) e2
+app (App e1 e2) e' = App (app e1 e2) e'
 
 -- | Perform a substitution.
 subst :: Bind -> Exp -> Exp

@@ -28,7 +28,7 @@ Exp : '\\' var '::' Type '.' Exp            { Lam $2 $4 $6 }
     | Term                                  { $1 }
 
 Term : Term Atom                            { App $1 $2 }
-    | Atom                                  { $1 }
+     | Atom                                 { $1 }
 
 Atom : '(' Exp ')'                          { $2 }
      | int                                  { Const $1 }
