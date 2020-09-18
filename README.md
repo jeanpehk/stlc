@@ -4,21 +4,21 @@ A simple REPL demo implementation.
 
 ## Syntax
 
-Lambda-abstraction:
+**Lambda-abstraction**:
 
-\y::Type.'lambda-term' | λ::Type.'lambda-term' | ('lambda-abstraction')
+*\y::Type.'lambda-term'* **|** *λ::Type.'lambda-term'* **|** *('lambda-abstraction')*
 
-Application:
+**Application**:
 
-'lambda-term' 'lambda-term'
+*'lambda-term'* *'lambda-term'*
 
-Variable:
+**Variable**:
 
-'string'
+*'string'*
 
-Type:
+**Type**:
 
-Int | Type '->' Type
+*Int* **|** *Type '->' Type*
 
 ## Building
 
