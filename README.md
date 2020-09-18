@@ -4,6 +4,8 @@ A simple REPL demo implementation.
 
 ## Usage:
 
+Some simple usage examples:
+
 ```haskell
 stlc> (λy::Int.y) 1
 1
@@ -13,6 +15,8 @@ stlc> (λy::Int->Int.y 2) (λa::Int.a)
 
 stlc> (λa::Int.3) 0
 3
+
+'\\' can also be used equivalently with 'λ'.
 
 ## Build
 
