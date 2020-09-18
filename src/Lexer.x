@@ -22,6 +22,7 @@ tokens :-
   "."                                 { \s -> TokenDot }
   Int                                 { \s -> TokenIntType }
   \\                                  { \s -> TokenLambda }
+  "λ"                                 { \s -> TokenLambda }
   \(                                  { \s -> TokenLParen }
   \)                                  { \s -> TokenRParen }
   $alpha [$alpha $digit \_ \']*       { \s -> TokenVar s }

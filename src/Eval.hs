@@ -2,7 +2,8 @@ module Eval where
 
 import Syntax
 
-data Bind = B { getC :: Name, getE :: Exp }
+-- | Bind a name to an expression.
+data Bind = B { name :: Name, to :: Exp}
   deriving (Eq, Show)
 
 -- | Small step reduction.
@@ -16,19 +17,16 @@ app :: Exp -> Exp -> Exp
 app (Const i) e2   = error $ "Fix typechecker, can't apply "
                               ++ show e2 ++ " to " ++ show i
 app (Var n) e2     = error $ "Unbound variable " ++ n
-app (Lam n _ e) e2 = subst (B n e) e2
+app (Lam n _ e) e2 = subst (B n e2) e
 app (App e1 e2) e' = App (app e1 e2) e'
 
 -- | Perform a substitution.
 subst :: Bind -> Exp -> Exp
-subst b (Const i)   = Const i
-subst b (Var n')
-  | getC b == n'    = getE b
-  | otherwise       = Var n'
-subst b (Lam n' t e')
-  | getC b == n'    = Lam n' t e'
-  | otherwise       = Lam n' t (subst b e')
-subst b (App e1 e2) = App (subst b e1) (subst b e2)
+subst b ine = case ine of
+  Const i   -> Const i
+  Var n     -> if name b == n then to b else ine
+  Lam n t e -> if name b == n then ine else Lam n t (subst b e)
+  App e1 e2 -> App (subst b e1) (subst b e2)
 
 -- | Small step reduce until we have a value.
 eval :: Exp -> Exp

@@ -2,6 +2,7 @@ module Main where
 
 import Eval
 import Parser
+import Syntax
 import TypeCheck
 
 import System.Environment
@@ -11,9 +12,10 @@ main :: IO ()
 main = repl
 
 repl = do
-  putStrLn "---------------------------- STLC repl ----------------------------"
-  putStrLn "Syntax: (\\'var'::'Type'.'lam-body') 'argument', Type 'q' to quit."
-  putStrLn "-------------------------------------------------------------------"
+  putStrLn "------------------------------ STLC repl ------------------------------"
+  putStrLn "Evaluates expressions to a function with no argument or to an integer."
+  putStrLn "Type 'q' to quit."
+  putStrLn "-----------------------------------------------------------------------"
   runInputT defaultSettings loop
   where
     loop :: InputT IO ()
@@ -26,4 +28,4 @@ repl = do
           let e = parseExp input
           case fst (runTc e) of
             Left err -> do {outputStrLn $ show err; loop}
-            Right x  -> do {outputStrLn $ show (eval e); loop}
+            Right x  -> do {outputStrLn $ pprint (eval e); loop}
