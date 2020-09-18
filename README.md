@@ -1,6 +1,6 @@
 # Simply Typed Lambda Calculus
 
-A simple REPL demo implementation.
+Demo implementation with a repl for evaluation.
 
 Some simple usage examples:
 
