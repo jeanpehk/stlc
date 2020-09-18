@@ -1,26 +1,20 @@
-# Simply typed lambda calculus
+# Simply Typed Lambda Calculus
 
 A simple REPL demo implementation.
 
-## Syntax
+## Usage:
 
-Lambda-abstraction:
+```haskell
+stlc> (λy::Int.y) 1
+1
 
-\y::Type.'lambda-term' | λ::Type.'lambda-term' | ('lambda-abstraction')
+stlc> (λy::Int->Int.y 2) (λa::Int.a)
+2
 
-Application:
+stlc> (λa::Int.3) 0
+3
 
-'lambda-term' 'lambda-term'
-
-Variable:
-
-'string'
-
-Type:
-
-Int | Type '->' Type
-
-## Building
+## Build
 
 To build with stack:
 
@@ -28,7 +22,7 @@ To build with stack:
 $ stack build
 ```
 
-## Running
+## Run
 
 Run repl with stack:
 
